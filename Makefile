@@ -14,13 +14,15 @@ stop :
 start : 
 	@sudo docker-compose -f ./srcs/docker-compose.yml start
 
-fclean : 
+fclean :
+	@sudo docker-compose -f ./srcs/docker-compose.yml stop
 	@sudo docker-compose -f ./srcs/docker-compose.yml down -v
 	@sudo docker system prune --all --force
 	@sudo docker volume prune --force
 	@sudo docker network prune --force
 	@sudo docker image prune --force
-	@sudo rm -r /home/${USER}/data
+	@if [ -d "/home/${USER}/data" ]; then sudo rm -r /home/${USER}/data; fi
+	
 
 status : 
 	@echo "\n\033[1;33mContainers\033[0m"

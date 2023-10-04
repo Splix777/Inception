@@ -1,12 +1,13 @@
 FROM debian:buster
 
-RUN apt update -y
-RUN apt upgrade -y
+RUN apt-get update
+RUN apt-get install -y mariadb-server
 
-RUN apt-get install mariadb-server -y
+EXPOSE 3306
 
-COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
+COPY ./tools /var/www/
 
-COPY tools/script.sh /tmp/script.sh
-RUN chmod 755 /tmp/script.sh
-CMD tmp/script.sh
+RUN service mysql start && mysql < /var/www/new_database.sql && rm -f /var/www/new_database.sql;
+
+CMD ["mysqld"]

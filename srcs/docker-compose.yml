@@ -1,17 +1,37 @@
-version: 3.5
+version: "3.5"
+
+volumes:
+        wordpress:
+                name: wordpress
+                driver: local
+                driver_opts:
+                        device: /home/splix/data/wordpress
+                        o: bind
+                        type: none
+        mariadb:
+                name: mariadb
+                driver: local
+                driver_opts:
+                        device: /home/splix/data/mariadb
+                        o: bind
+                        type: none
+
+networks:
+  inception:
+    name: inception
+    driver: bridge
 
 services:
-
   nginx:
     container_name: nginx
-    build: ./requirements/nginx/
+    build: ./requirements/nginx/.
     image: nginx:42
     ports:
-      - 443:443
+     - "443:443"
     depends_on:
       - wordpress
     volumes:
-      - wordpress:/var/www/html
+     - wordpress:/var/www/html
     networks:
       - inception
     env_file:
@@ -20,21 +40,21 @@ services:
 
   wordpress:
     container_name: wordpress
-    build: ./requirements/wordpress/
+    build: ./requirements/wordpress/.
     image: wordpress:42
     depends_on:
       - mariadb
     volumes:
       - wordpress:/var/www/html
-    networks:
-      - inception
     env_file:
       - .env
+    networks:
+      - inception
     restart: always
-
+    
   mariadb:
     container_name: mariadb
-    build: ./requirements/mariadb/
+    build: ./requirements/mariadb/.
     image: mariadb:42
     volumes:
       - mariadb:/var/lib/mysql
@@ -43,25 +63,4 @@ services:
     networks:
       - inception
     restart: always
-
-volumes:
-
-  wordpress:
-    name: wordpress
-    driver: local
-    driver_opts:
-      device: /Users/fsalazar/Desktop/Inception/srcs/wordpress
-      o: bind
-      type: none
-
-  mariadb:
-    name: mariadb
-    driver: local
-    driver_opts:
-      device: /Users/fsalazar/Desktop/Inception/srcs/mariadb
-      o: bind
-      type: none
-
-networks:
-  inception:
-    name: inception
+ 

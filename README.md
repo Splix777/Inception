@@ -1,3 +1,11 @@
+<!-- PROJECT LOGO -->
+<br />
+<div align="center" style="height:200px; margin-bottom:10%">
+  <a>
+    <img src="assets/docker_moby.png" alt="Docker logo">
+  </a>
+</div>
+
 # Inception
 
 This project consists in having you set up a small infrastructure composed of different

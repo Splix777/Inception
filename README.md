@@ -96,6 +96,7 @@ git@github.com:Splix777/Inception.git
 - Create a file named 'dockerfile'.
 - Write out the commands for your dockerfile.
 - Below I describe a few of the commonly used ones:
+  
       • FROM: Specifies the base image from which the new image is built. It's the starting point for your
               Docker image. For example, FROM ubuntu:20.04 sets the base image to Ubuntu 20.04.
   

@@ -7,64 +7,58 @@ DEPENDENCIES = $(MARIADB_VOLUME) $(WORDPRESS_VOLUME)
 all: up
 
 $(MARIADB_VOLUME):
-	sudo mkdir -p $(MARIADB_VOLUME)
+	@echo "\033[1;33mCreating MariaDB volume\033[0m"
+	@sudo mkdir -p $(MARIADB_VOLUME)
 
 $(WORDPRESS_VOLUME):
-	sudo mkdir -p $(WORDPRESS_VOLUME)
-
-ps:
-	$(COMPOSE) ps
-
-images:
-	$(COMPOSE) images
-
-volumes:
-	$(DOCKER) volume ls
-
-networks:
-	$(DOCKER) network ls
+	@echo "\033[1;33mCreating Wordpress volume\033[0m"
+	@sudo mkdir -p $(WORDPRESS_VOLUME)
 
 start: $(DEPENDENCIES)
-	$(COMPOSE) start
+	@echo "\033[1;33mStarting containers\033[0m"
+	@$(COMPOSE) start
 
 stop:
-	$(COMPOSE) stop
+	@echo "\033[1;33mStopping containers\033[0m"
+	@$(COMPOSE) stop
 
 restart: $(DEPENDENCIES)
-	$(COMPOSE) restart
+	@echo "\033[1;33mRestarting containers\033[0m"
+	@$(COMPOSE) restart
 
 up: $(DEPENDENCIES)
-	$(COMPOSE) up --detach --build
+	@echo "\033[1;33mStarting containers\033[0m"
+	@$(COMPOSE) up --detach --build > /dev/null 2>&1
 
 down:
-	$(COMPOSE) down
+	@echo "\033[1;33mDestroying containers\033[0m"
+	@$(COMPOSE) down
 
 clean:
-	$(COMPOSE) down --rmi all --volumes
+	@echo "\033[1;33mDestroying containers, images and volumes\033[0m"
+	@$(COMPOSE) down --rmi all --volumes
 
 fclean: clean
-	$(DOCKER)-compose -f ./srcs/docker-compose.yml stop
-	$(DOCKER)-compose -f ./srcs/docker-compose.yml down -v
-	$(DOCKER) system prune --all --force
-	$(DOCKER) volume prune --force
-	$(DOCKER) network prune --force
-	$(DOCKER) image prune --force
+	@echo "\033[1;33mFlushing Docker\033[0m"
+	@$(DOCKER)-compose -f ./srcs/docker-compose.yml stop
+	@$(DOCKER)-compose -f ./srcs/docker-compose.yml down -v
+	@$(DOCKER) system prune --all --force
+	@$(DOCKER) volume prune --force
+	@$(DOCKER) network prune --force
+	@$(DOCKER) image prune --force
 	@if [ -d "/home/splix/data" ]; then sudo $(RM) -rf /home/splix/data; fi
-
-prune: down fclean
-	$(DOCKER) system prune -a -f
 
 re: fclean all
 
 status:
 	@echo "\n\033[1;33mContainers\033[0m"
-	$(DOCKER) ps -a
+	@$(DOCKER) ps -a
 	@echo "\n\033[1;33mImages\033[0m"
-	$(DOCKER) images
+	@$(DOCKER) images
 	@echo "\n\033[1;33mVolumes\033[0m"
-	$(DOCKER) volume ls
+	@$(DOCKER) volume ls
 	@echo "\n\033[1;33mNetworks\033[0m"
-	$(DOCKER) network ls
+	@$(DOCKER) network ls
 
-.PHONY: all ps images volumes networks start stop restart up down clean fclean prune re status
+.PHONY: all ps images volumes networks start stop restart up down clean fclean re status
 

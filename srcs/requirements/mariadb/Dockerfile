@@ -45,7 +45,9 @@ RUN service mysql start \
 	"CREATE DATABASE IF NOT EXISTS $DB_DATABASE; \
 	ALTER USER 'root'@'localhost' IDENTIFIED BY '$DB_ROOT_PASSWORD'; \
 	GRANT ALL PRIVILEGES ON $DB_DATABASE.* TO '$DB_USER_NAME'@'%' IDENTIFIED BY '$DB_USER_PASSWORD'; \
+	GRANT ALL PRIVILEGES ON $DB_DATABASE.* TO '$DB_USER_NAME'@'localhost' IDENTIFIED BY '$DB_USER_PASSWORD'; \
 	FLUSH PRIVILEGES;"
+
 # Copy our configuration files to the correct location in the container
 # The mariadb.conf.d directory contains configuration files for MariaDB Server.
 COPY ./conf/mariadb.conf /etc/mysql/mariadb.conf.d/50-server.cnf

@@ -50,7 +50,7 @@ RUN apt-get clean -y
 RUN openssl req -x509 -days 365 -nodes -newkey rsa:4096 \
     -keyout /etc/ssl/fsalazar.42.fr.key \
     -out /etc/ssl/fsalazar.42.fr.crt \
-    -sha256 -subj "/C=ES/ST=MADRID/L=MADRID/O=wordpress/CN=fsalazar.42.fr"
+    -sha256 -subj "/C=ES/ST=MADRID/L=MADRID/O=42Madrid/CN=fsalazar.42.fr"
 
 # Copy NGINX config files
 COPY ./conf/nginx.conf /etc/nginx/sites-available/fsalazar.42.fr.conf

@@ -1,37 +1,70 @@
-all : up
+DOCKER = sudo docker
+COMPOSE = $(DOCKER)-compose -p inception -f srcs/docker-compose.yml
+MARIADB_VOLUME = /home/splix/data/mariadb
+WORDPRESS_VOLUME = /home/splix/data/wordpress
+DEPENDENCIES = $(MARIADB_VOLUME) $(WORDPRESS_VOLUME)
 
-up : 
-	@sudo mkdir -p /home/${USER}/data/mariadb
-	@sudo mkdir -p /home/${USER}/data/wordpress
-	@sudo docker-compose -f ./srcs/docker-compose.yml up -d
+all: up
 
-down : 
-	@sudo docker-compose -f ./srcs/docker-compose.yml down
+$(MARIADB_VOLUME):
+	sudo mkdir -p $(MARIADB_VOLUME)
 
-stop : 
-	@sudo docker-compose -f ./srcs/docker-compose.yml stop
+$(WORDPRESS_VOLUME):
+	sudo mkdir -p $(WORDPRESS_VOLUME)
 
-start : 
-	@sudo docker-compose -f ./srcs/docker-compose.yml start
+ps:
+	$(COMPOSE) ps
 
-fclean :
-	@sudo docker-compose -f ./srcs/docker-compose.yml stop
-	@sudo docker-compose -f ./srcs/docker-compose.yml down -v
-	@sudo docker system prune --all --force
-	@sudo docker volume prune --force
-	@sudo docker network prune --force
-	@sudo docker image prune --force
-	@if [ -d "/home/${USER}/data" ]; then sudo rm -r /home/${USER}/data; fi
-	
+images:
+	$(COMPOSE) images
 
-status : 
+volumes:
+	$(DOCKER) volume ls
+
+networks:
+	$(DOCKER) network ls
+
+start: $(DEPENDENCIES)
+	$(COMPOSE) start
+
+stop:
+	$(COMPOSE) stop
+
+restart: $(DEPENDENCIES)
+	$(COMPOSE) restart
+
+up: $(DEPENDENCIES)
+	$(COMPOSE) up --detach --build
+
+down:
+	$(COMPOSE) down
+
+clean:
+	$(COMPOSE) down --rmi all --volumes
+
+fclean: clean
+	$(DOCKER)-compose -f ./srcs/docker-compose.yml stop
+	$(DOCKER)-compose -f ./srcs/docker-compose.yml down -v
+	$(DOCKER) system prune --all --force
+	$(DOCKER) volume prune --force
+	$(DOCKER) network prune --force
+	$(DOCKER) image prune --force
+	@if [ -d "/home/splix/data" ]; then sudo $(RM) -rf /home/splix/data; fi
+
+prune: down fclean
+	$(DOCKER) system prune -a -f
+
+re: fclean all
+
+status:
 	@echo "\n\033[1;33mContainers\033[0m"
-	@sudo docker ps
-	@echo "\n\033[1;33mVolumes\033[0m"
-	@sudo docker volume ls
+	$(DOCKER) ps -a
 	@echo "\n\033[1;33mImages\033[0m"
-	@sudo docker images
+	$(DOCKER) images
+	@echo "\n\033[1;33mVolumes\033[0m"
+	$(DOCKER) volume ls
 	@echo "\n\033[1;33mNetworks\033[0m"
-	@sudo docker network ls
+	$(DOCKER) network ls
 
-.PHONY: all up down stop start fclean status
+.PHONY: all ps images volumes networks start stop restart up down clean fclean prune re status
+

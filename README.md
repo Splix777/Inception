@@ -98,16 +98,26 @@ git@github.com:Splix777/Inception.git
 - Below I describe a few of the commonly used ones:
       • FROM: Specifies the base image from which the new image is built. It's the starting point for your
               Docker image. For example, FROM ubuntu:20.04 sets the base image to Ubuntu 20.04.
+  
       • LABEL: Adds metadata to the image in the form of key-value pairs. Labels are typically used for                         documentation and organization. For example, LABEL maintainer="John Doe <johndoe@example.com>".
+  
       • RUN: Executes a command in the image during the build process. It's often used to install software or                 perform setup tasks. For example, RUN apt-get update && apt-get install -y curl.
+  
       • COPY: Copies files or directories from the host system into the image. It's used to add application code               and resources to the image. For example, COPY app.py /app/.
+  
       • ADD: Similar to COPY, but has some additional features like unpacking compressed files and downloading                files from URLs. Use it when you need more advanced copying behavior.
+  
       • EXPOSE: Informs Docker that the container will listen on a specific port at runtime. It doesn't actually                 publish the port; it's for documentation purposes. For example, EXPOSE 80.
+  
       • ENV: Sets environment variables that are available to processes running in the container. It's often                  used for configuration. For example, ENV DATABASE_URL=postgres://user:password@dbhost/database.
+  
       • CMD: Specifies the default command to run when the container is started. It can be overridden at                      runtime. For example, CMD ["python", "app.py"].
+  
       • ENTRYPOINT: Similar to CMD, but the command and its arguments are not easily overridden at runtime. It's                     used to define the main executable for the container. For example, ENTRYPOINT
                     ["nginx", "-  g", "daemon off;"].
+  
       • ARG: Defines a build-time variable that can be used in the Dockerfile. These variables are typically set              with values when the Docker image is built using the --build-arg flag in the docker build command.               ARGs provide a way to parameterize the Dockerfile and make it more flexible.
+  
 
 ## Contributing
 

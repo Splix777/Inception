@@ -28,7 +28,7 @@ restart: $(DEPENDENCIES)
 
 up: $(DEPENDENCIES)
 	@echo "\033[1;33mStarting containers\033[0m"
-	@$(COMPOSE) up --detach --build > /dev/null 2>&1
+	@$(COMPOSE) up --detach --build
 
 down:
 	@echo "\033[1;33mDestroying containers\033[0m"

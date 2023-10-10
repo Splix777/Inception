@@ -87,3 +87,30 @@ ENTRYPOINT [ "/usr/bin/dumb-init", "--" ]
 #       command passed to the container would be treated as arguments to
 #       dumb-init, not to NGINX.
 CMD [ "nginx", "-g", "daemon off;" ]
+
+# Pros and Cons of Alpine Linux:
+# Pros:
+# 1. Lightweight: Alpine is minimalistic and lightweight, ideal for resource-constrained environments.
+# 2. Security: Strong focus on security with grsec/PaX kernel patches and musl libc.
+# 3. Package Manager (APK): Fast and efficient package management.
+# 4. Docker-Friendly: Popular for Docker containers due to small image size.
+# 5. Rolling Release: Continuous updates without major version upgrades.
+# 6. Documentation: Well-maintained documentation.
+
+# Cons:
+# 1. Limited Software Repositories: May have fewer software packages than Debian.
+# 2. Learning Curve: Unique package management and configuration may require adjustment.
+
+# Pros and Cons of Debian Buster:
+# Pros:
+# 1. Stability: Known for stability, suitable for production environments.
+# 2. Wide Software Repositories: Vast repository of software packages.
+# 3. Long-Term Support (LTS): LTS releases with extended support.
+# 4. Well-Established: Large community, extensive documentation, and a proven track record.
+# 5. Multiple Architectures: Supports a wide range of hardware.
+
+# Cons:
+# 1. Resource Intensive: More resource usage compared to Alpine.
+# 2. Slower Updates: Older package versions, not ideal for bleeding-edge software.
+# 3. Complex Configuration: Extensive configuration options.
+# 4. Large Installation Size: Default installation can be large, may be an issue for limited storage.

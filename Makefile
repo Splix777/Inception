@@ -61,4 +61,3 @@ status:
 	@$(DOCKER) network ls
 
 .PHONY: all ps images volumes networks start stop restart up down clean fclean re status
-

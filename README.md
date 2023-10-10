@@ -130,7 +130,44 @@ git@github.com:Splix777/Inception.git
   • ENTRYPOINT: Similar to CMD, but the command and its arguments are not easily overridden at runtime. It's used to define the main executable for the container. For example, ENTRYPOINT ["nginx", "-  g", "daemon off;"].
   
   • ARG: Defines a build-time variable that can be used in the Dockerfile. These variables are typically set with values when the Docker image is built using the --build-arg flag in the docker build command. ARGs provide a way to parameterize the Dockerfile and make it more flexible.
-  
+
+### Docker Network Types: ###
+
+1. Bridge Network:
+   - Description: Default network type in Docker. Allows containers to communicate with each other on the same host.
+   - Use Case: Suitable for isolated container communication on a single host.
+
+2. Host Network:
+   - Description: Containers share the host's network stack directly.
+   - Use Case: Useful when containers need full access to the host's network but may reduce isolation.
+
+3. Overlay Network:
+   - Description: Used for multi-host communication in a Docker Swarm cluster.
+   - Use Case: Ideal for deploying containerized applications across multiple nodes in a Docker Swarm cluster.
+
+4. Macvlan Network:
+   - Description: Enables containers to have their own MAC addresses and appear as separate physical devices on the network.
+   - Use Case: Useful when containers need direct access to external networks.
+
+5. None Network:
+   - Description: Containers are isolated from all external networks, including the host's network.
+   - Use Case: Appropriate for scenarios where complete network isolation is needed.
+
+6. Bridge Network with Custom Subnet:
+   - Description: Similar to the default bridge network but with a custom subnet range and gateway.
+   - Use Case: When you need more control over IP addressing and routing within the bridge network.
+
+7. Overlay Network with Custom Driver:
+   - Description: Extends overlay network capabilities with custom network drivers.
+   - Use Case: Advanced networking scenarios requiring specific features not provided by the default overlay network.
+
+8. VxLAN Network:
+   - Description: Uses Virtual Extensible LAN (VxLAN) for communication across multiple hosts.
+   - Use Case: Spanning container networks across multiple hosts.
+
+9. Swarm Ingress Network:
+   - Description: Used in Docker Swarm mode to expose services to the outside world.
+   - Use Case: Essential for load balancing and routing external traffic to services in a Swarm cluster.
 
 ## Contributing
 

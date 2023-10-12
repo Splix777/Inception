@@ -82,29 +82,27 @@ git@github.com:Splix777/Inception.git
 ### General Useful commands ###
 
 ```c
-- docker-compose up -d --build, //Create and build all the containers and they still run in the background
-- docker-compose ps, //Check the status for all the containers
-- docker-compose logs -f --tail 5, //See the first 5 lines of the logs of your containers
-- docker-compose stop , //stop a stack of your docker compose
-- Docker-compose down, //Destroy all your resources
-- docker-compose config, //Check the syntax of you docker-compose file
+- docker-compose up -d --build
+- docker-compose ps
+- docker-compose stop
+- Docker-compose down
+- docker-compose config
 
 ```
 
 ### Docker run
 
 ```c
-- docker run "name of the docker image" //Run the docker image
-- docker run -d, //Run container in background
-- docker run -p, //Publish a container's port to the host
-- docker run -P, //Publish all exposed port to random ports
-- docker run -it "imageName" bash //Run the Docker with access to the bash or (sh).
+- docker run "name of the docker image"
+- docker run -d
+- docker run -p
+- docker run -it "imageName" bash
 ```
 
 ### Docker image
 ```c
-- docker image rm -f "image name/id", //delete the image, if the image is running you need to kill it first.
-- docker image kill "name", //stop a running image,
+- docker image rm -f "image name/id"
+- docker image kill "name"
 ```
 ## The Basics of writting a dockerfile ##
 - Create a file named 'dockerfile'.

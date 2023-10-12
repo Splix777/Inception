@@ -1,8 +1,12 @@
 DOCKER = sudo docker
+
 COMPOSE = $(DOCKER)-compose -p inception -f srcs/docker-compose.yml
+
 MARIADB_VOLUME = /home/splix/data/mariadb
+
 WORDPRESS_VOLUME = /home/splix/data/wordpress
-DEPENDENCIES = $(MARIADB_VOLUME) $(WORDPRESS_VOLUME)
+
+VOLUMES = $(MARIADB_VOLUME) $(WORDPRESS_VOLUME)
 
 all: up
 
@@ -14,7 +18,7 @@ $(WORDPRESS_VOLUME):
 	@echo "\033[1;33mCreating Wordpress volume\033[0m"
 	@sudo mkdir -p $(WORDPRESS_VOLUME)
 
-start: $(DEPENDENCIES)
+start: $(VOLUMES)
 	@echo "\033[1;33mStarting containers\033[0m"
 	@$(COMPOSE) start
 
@@ -22,11 +26,11 @@ stop:
 	@echo "\033[1;33mStopping containers\033[0m"
 	@$(COMPOSE) stop
 
-restart: $(DEPENDENCIES)
+restart: $(VOLUMES)
 	@echo "\033[1;33mRestarting containers\033[0m"
 	@$(COMPOSE) restart
 
-up: $(DEPENDENCIES)
+up: $(VOLUMES)
 	@echo "\033[1;33mStarting containers\033[0m"
 	@$(COMPOSE) up --detach --build
 

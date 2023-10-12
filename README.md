@@ -237,6 +237,25 @@ In summary, volumes in Docker are a way to manage and persist data for container
 
 - They are useful for situations where you need a very fast and temporary storage space. However, data stored in TMPFS volumes is lost when the container is removed or stopped.
 
+#### HINT: ####
+
+If your containers boot up and you are able to access WordPress through localhost and 127.0.0.1 but not your username.42.fr; you might need to modify your VM /etc/hosts file. Seeing how this project has to be done within a virtual machine. Depending on the OS you choose you might have to manually modify your /etc/hosts file to add the redirect.
+
+Below you can see how I modified the hosts file. I ran this project on Debian 12. This might vary depending on the OS of your choice.
+
+```c
+127.0.0.1  localhost
+127.0.1.1  splix-VirtualBox
+127.0.0.1  fsalazar.42.fr
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+```
+
 
 ## Contributing
 

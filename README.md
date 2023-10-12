@@ -245,7 +245,7 @@ Below you can see how I modified the hosts file. I ran this project on Debian 12
 
 ```c
 127.0.0.1  localhost
-127.0.1.1  splix-VirtualBox
+127.0.1.1  user-VirtualBox
 127.0.0.1  fsalazar.42.fr
 
 # The following lines are desirable for IPv6 capable hosts

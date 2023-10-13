@@ -46,6 +46,7 @@ RUN service mysql start \
 	ALTER USER 'root'@'localhost' IDENTIFIED BY '$DB_ROOT_PASSWORD'; \
 	GRANT ALL PRIVILEGES ON $DB_DATABASE.* TO '$DB_USER_NAME'@'%' IDENTIFIED BY '$DB_USER_PASSWORD'; \
 	GRANT ALL PRIVILEGES ON $DB_DATABASE.* TO '$DB_USER_NAME'@'localhost' IDENTIFIED BY '$DB_USER_PASSWORD'; \
+	DROP USER IF EXISTS 'root'@'localhost'; \
 	FLUSH PRIVILEGES;"
 
 # Copy our configuration files to the correct location in the container

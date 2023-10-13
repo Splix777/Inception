@@ -1,4 +1,4 @@
-DOCKER = sudo docker
+DOCKER = docker
 
 COMPOSE = $(DOCKER)-compose -p inception -f srcs/docker-compose.yml
 
@@ -15,12 +15,12 @@ all: up
 
 $(MARIADB_VOLUME):
 	@echo "\033[1;33mCreating MariaDB volume\033[0m"
-	@sudo mkdir -p $(MARIADB_VOLUME)
+	@mkdir -p $(MARIADB_VOLUME)
 # The -p flag in the mkdir command stands for "parents" and is used to create a directory and any necessary parent directories (also known as parent directories or intermediate directories) in the specified path. If the parent directories don't exist, the -p flag ensures that they are created along with the target directory.
 
 $(WORDPRESS_VOLUME):
 	@echo "\033[1;33mCreating Wordpress volume\033[0m"
-	@sudo mkdir -p $(WORDPRESS_VOLUME)
+	@mkdir -p $(WORDPRESS_VOLUME)
 
 start: $(VOLUMES)
 	@echo "\033[1;33mStarting containers\033[0m"
@@ -64,7 +64,7 @@ fclean: clean
 	@$(DOCKER) volume prune --force
 	@$(DOCKER) network prune --force
 	@$(DOCKER) image prune --force
-	@if [ -d "/home/splix/data" ]; then sudo $(RM) -rf /home/splix/data; fi
+	@if [ -d "/home/splix/data" ]; then $(RM) -rf /home/splix/data; fi
 # -d: -d checks for directory existence.
 
 re: fclean all
